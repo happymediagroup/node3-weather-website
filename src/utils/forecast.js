@@ -2,7 +2,6 @@ const request = require('request')
 
 const forecast = (latitude, longitude, callback) => {
     const url = 'http://api.weatherstack.com/current?access_key=d3503fdf90efc9b835f04ecda64a561e&query=' + latitude + ',' + longitude
-    //console.log(url)
 
     request({ url, json: true }, (error, {body}) => {
         if (error) {
@@ -14,7 +13,9 @@ const forecast = (latitude, longitude, callback) => {
         } else {
             callback(undefined, {
                 temperature: body.current.temperature,
-                feelslike: body.current.feelslike
+                feelslike: body.current.feelslike,
+                humidity: body.current.humidity,
+                outlook: body.current.weather_descriptions.join('.')
             })
         }
     })
